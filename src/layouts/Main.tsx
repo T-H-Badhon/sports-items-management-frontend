@@ -1,14 +1,20 @@
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import SideBar from "../components/sider";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content } = Layout;
 
 const Main = () => {
-  const {
-    token: { borderRadiusLG },
-  } = theme.useToken();
   return (
-    <Layout style={{ height: "100vh", margin: 0, padding: 0 }}>
+    <Layout
+      style={{
+        height: "100vh",
+        margin: "auto",
+        padding: 0,
+        textAlign: "center",
+        maxWidth: "1280px",
+      }}
+    >
       <Header
         style={{
           padding: 0,
@@ -23,16 +29,7 @@ const Main = () => {
         <SideBar></SideBar>
         <Layout>
           <Content>
-            <div
-              style={{
-                padding: 24,
-                minHeight: 360,
-
-                borderRadius: borderRadiusLG,
-              }}
-            >
-              content
-            </div>
+            <Outlet></Outlet>
           </Content>
         </Layout>
       </Layout>

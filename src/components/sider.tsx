@@ -1,25 +1,43 @@
-import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-
 import { Layout, Menu } from "antd";
+import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
 
 const SideBar = () => {
   const items = [
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    UserOutlined,
-  ].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-  }));
+    {
+      key: "1",
+      label: <Link to="/dashboard">Dashboard</Link>,
+    },
+    {
+      key: "2",
+      label: "Products",
+      children: [
+        {
+          key: "21",
+          label: <Link to="addProduct">Add Product</Link>,
+        },
+        {
+          key: "22",
+          label: <Link to="sellProduct">Sell Product</Link>,
+        },
+        {
+          key: "23",
+          label: <Link to="deleteProducts">Delete Products</Link>,
+        },
+      ],
+    },
+    {
+      key: "3",
+      label: "User management",
+      children: [
+        {
+          key: "33",
+          label: "Log out",
+        },
+      ],
+    },
+  ];
 
   return (
     <Sider
