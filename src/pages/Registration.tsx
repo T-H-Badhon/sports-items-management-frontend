@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button, Checkbox, Form, Input } from "antd";
-import Link from "antd/es/typography/Link";
+import { Button, Form, Input } from "antd";
 
 const onFinish = (values: any) => {
   console.log("Success:", values);
@@ -17,7 +16,7 @@ type FieldType = {
   remember?: string;
 };
 
-const Login = () => (
+const Registration = () => (
   <Form
     name="basic"
     labelCol={{ span: 8 }}
@@ -29,9 +28,23 @@ const Login = () => (
     autoComplete="off"
   >
     <Form.Item<FieldType>
+      label="name"
+      id="name"
+      rules={[{ required: true, message: "Please input your name!" }]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item<FieldType>
       label="Username"
-      name="username"
+      id="username"
       rules={[{ required: true, message: "Please input your username!" }]}
+    >
+      <Input />
+    </Form.Item>
+    <Form.Item<FieldType>
+      label="email"
+      id="email"
+      rules={[{ required: true, message: "Please input your email!" }]}
     >
       <Input />
     </Form.Item>
@@ -44,24 +57,12 @@ const Login = () => (
       <Input.Password />
     </Form.Item>
 
-    <Form.Item<FieldType>
-      name="remember"
-      valuePropName="checked"
-      wrapperCol={{ offset: 8, span: 16 }}
-    >
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item>
-
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
       <Button type="primary" htmlType="submit">
         Submit
       </Button>
     </Form.Item>
-
-    <div>
-      <Link href="/register">Go to Register</Link>
-    </div>
   </Form>
 );
 
-export default Login;
+export default Registration;
