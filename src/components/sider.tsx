@@ -34,7 +34,7 @@ const SideBar = () => {
       children: [
         {
           key: "33",
-          label: <Link to="logout">LogOut</Link>,
+          label: <Link to="logout">Log Out</Link>,
         },
       ],
     },
