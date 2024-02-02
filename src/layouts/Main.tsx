@@ -23,7 +23,7 @@ const Main = () => {
           fontSize: "32px",
         }}
       >
-        Dashboard
+        Sports Item Management System
       </Header>
       <Layout>
         <SideBar></SideBar>

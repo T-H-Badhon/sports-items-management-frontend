@@ -3,13 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 type TUserState = {
   _id: string;
   username: string;
-  email: string;
 };
 
 const initialState: TUserState = {
   _id: "",
   username: "",
-  email: "",
 };
 
 const authSlice = createSlice({
@@ -18,10 +16,13 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state._id = action.payload._id;
-      state.email = action.payload.email;
       state.username = action.payload.username;
+    },
+    logOut: (state) => {
+      state._id = "";
+      state.username = "";
     },
   },
 });
-export const { setUser } = authSlice.actions;
+export const { setUser, logOut } = authSlice.actions;
 export default authSlice.reducer;

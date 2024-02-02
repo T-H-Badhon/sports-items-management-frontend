@@ -1,4 +1,5 @@
 import { Layout, Menu } from "antd";
+
 import { Link } from "react-router-dom";
 
 const { Sider } = Layout;
@@ -33,7 +34,7 @@ const SideBar = () => {
       children: [
         {
           key: "33",
-          label: "Log out",
+          label: <Link to="logout">Log Out</Link>,
         },
       ],
     },

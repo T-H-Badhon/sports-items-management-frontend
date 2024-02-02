@@ -1,22 +1,50 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Label, TextInput } from "flowbite-react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useSignUpMutation } from "../redux/api/auth/authApi";
 
 const Registration = () => {
+  const { register, handleSubmit } = useForm();
+
+  const [signUp, { data, error }] = useSignUpMutation();
+
+  console.log(data), console.log(error);
+
+  const onSubmit = (data: any) => {
+    signUp(data);
+  };
+
   return (
     <div className="container mt-20 md:mt-40 mx-auto">
       <h1 className="text-xl text-center text-blue-700">Register now</h1>
-      <form className="flex max-w-md flex-col gap-4 mx-auto">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex max-w-md flex-col gap-4 mx-auto"
+      >
         <div>
           <div className="mb-2 block">
             <Label htmlFor="name" value="Your name" />
           </div>
-          <TextInput id="name" type="text" required shadow />
+          <TextInput
+            id="name"
+            type="text"
+            required
+            shadow
+            {...register("name")}
+          />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="username" value="Username" />
           </div>
-          <TextInput id="username" type="text" required shadow />
+          <TextInput
+            id="username"
+            type="text"
+            required
+            shadow
+            {...register("username")}
+          />
         </div>
         <div>
           <div className="mb-2 block">
@@ -28,19 +56,32 @@ const Registration = () => {
             placeholder="example@gmail.com"
             required
             shadow
+            {...register("email")}
           />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="password" value="Your password" />
           </div>
-          <TextInput id="password" type="password" required shadow />
+          <TextInput
+            id="password"
+            type="password"
+            required
+            shadow
+            {...register("password")}
+          />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="repeatPassword" value="Repeat password" />
           </div>
-          <TextInput id="repeatPassword" type="password" required shadow />
+          <TextInput
+            id="repeatPassword"
+            type="password"
+            required
+            shadow
+            {...register("repeatPassword")}
+          />
         </div>
 
         <div>
