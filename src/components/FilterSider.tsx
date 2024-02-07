@@ -1,14 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Label, TextInput } from "flowbite-react";
-import { useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { Sidebar } from "react-pro-sidebar";
 
-const FilterSider = ({ collapsed }: { collapsed: boolean }) => {
+const FilterSider = ({
+  collapsed,
+  setProductQuery,
+}: {
+  collapsed: boolean;
+  setProductQuery: any;
+}) => {
   const { register, handleSubmit } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
-    console.log(data);
+    setProductQuery(data);
   };
 
   return (

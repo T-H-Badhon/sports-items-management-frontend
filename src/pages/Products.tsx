@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FilterSider from "../components/FilterSider";
+import { useAllProductsQuery } from "../redux/api/productApi/productApi";
 
 const Products = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -7,6 +8,15 @@ const Products = () => {
   const handleToggleSidebar = () => {
     setCollapsed(!collapsed);
   };
+
+  const [productQuery, setProductQuery] = useState("");
+
+  const { data, isError } = useAllProductsQuery(productQuery);
+
+  if (!isError && !data) {
+    return <h1> there is an error</h1>;
+  }
+
   return (
     <div className="mx-10 mt-10">
       <div className="flex justify-between">
@@ -19,7 +29,10 @@ const Products = () => {
         </button>
       </div>
       <hr />
-      <FilterSider collapsed={collapsed}></FilterSider>
+      <FilterSider
+        collapsed={collapsed}
+        setProductQuery={setProductQuery}
+      ></FilterSider>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
     </div>
   );
