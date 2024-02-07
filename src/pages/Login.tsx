@@ -16,9 +16,13 @@ const Login = () => {
 
   const onSubmit = async (data: any) => {
     const res = await login(data).unwrap();
+
     const userInfo = varifyToken(res.data.token);
-    console.log(userInfo);
-    dispatch(setUser(userInfo));
+
+    const user = { ...userInfo, token: res.data.token };
+
+    console.log(user);
+    dispatch(setUser(user));
 
     navigate("/");
   };

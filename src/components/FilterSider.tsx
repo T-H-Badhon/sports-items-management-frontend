@@ -1,40 +1,22 @@
 import { Label, TextInput } from "flowbite-react";
-
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAddProductMutation } from "../redux/api/productApi/productApi";
+import { Sidebar } from "react-pro-sidebar";
 
-const AddProduct = () => {
+const FilterSider = ({ collapsed }: { collapsed: boolean }) => {
   const { register, handleSubmit } = useForm();
 
-  const [AddProduct] = useAddProductMutation();
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = async (data: any) => {
-    const res = await AddProduct(data);
-
-    console.log(res);
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
 
   return (
-    <div className="mx-auto mt-5 md:mt-20">
-      <h1 className="text-2xl text-blue-950 font-bold my-8">Add Product</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex max-w-md flex-col gap-4 mx-auto"
-      >
-        <div className="grid grid-cols-6 gap-3">
-          <div className="col-span-4">
-            <div className="mb-2 block">
-              <Label htmlFor="name" value="Product name:" />
-            </div>
-            <TextInput
-              id="name"
-              type="text"
-              sizing="sm"
-              {...register("name")}
-            />
-          </div>
-          <div className="col-span-2">
+    <div>
+      <Sidebar collapsed={collapsed} collapsedWidth="0px" width="200px">
+        <h1>Filter Terms:</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
             <div className="mb-2 block">
               <Label htmlFor="brand" value="Brand:" />
             </div>
@@ -45,18 +27,28 @@ const AddProduct = () => {
               {...register("brand")}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-6 gap-3">
-          <div className="col-span-3">
+
+          <div>
             <div className="mb-2 block">
-              <Label htmlFor="price" value="Price (tk):" />
+              <Label htmlFor="price" value="Price Range:" />
             </div>
-            <TextInput
-              id="price"
-              type="text"
-              sizing="sm"
-              {...register("price")}
-            />
+            <div className="flex">
+              <TextInput
+                id="price"
+                type="text"
+                sizing="sm"
+                {...register("minPrice")}
+                placeholder="min"
+              />
+              <h1 className="px-1">-</h1>
+              <TextInput
+                id="price"
+                type="text"
+                sizing="sm"
+                {...register("maxPrice")}
+                placeholder="max"
+              />
+            </div>
           </div>
           <div className="col-span-3">
             <div className="mb-2 block">
@@ -69,8 +61,7 @@ const AddProduct = () => {
               {...register("sportsType")}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-6 gap-3">
+
           <div className="col-span-3">
             <div className="mb-2 block">
               <Label htmlFor="quantity" value="Quantity:" />
@@ -93,8 +84,7 @@ const AddProduct = () => {
               {...register("condition")}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-6 gap-3">
+
           <div className="col-span-3">
             <div className="mb-2 block">
               <Label htmlFor="material" value="Material:" />
@@ -117,11 +107,10 @@ const AddProduct = () => {
               {...register("color")}
             />
           </div>
-        </div>
-        <div className="grid grid-cols-6 gap-3">
+
           <div className="col-span-3">
             <div className="mb-2 block">
-              <Label htmlFor="size" value="Size (optional):" />
+              <Label htmlFor="size" value="Size:" />
             </div>
             <TextInput
               id="size"
@@ -132,7 +121,7 @@ const AddProduct = () => {
           </div>
           <div className="col-span-3">
             <div className="mb-2 block">
-              <Label htmlFor="weight" value="Weight(KG) (optional):" />
+              <Label htmlFor="weight" value="Weight(kg):" />
             </div>
             <TextInput
               id="weight"
@@ -141,17 +130,17 @@ const AddProduct = () => {
               {...register("weight")}
             />
           </div>
-        </div>
 
-        <button
-          type="submit"
-          className="px-5 py-3 bg-blue-950 text-white rounded-2xl"
-        >
-          Add
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="px-5 py-3 bg-blue-950 text-white rounded-2xl"
+          >
+            Filter
+          </button>
+        </form>
+      </Sidebar>
     </div>
   );
 };
 
-export default AddProduct;
+export default FilterSider;

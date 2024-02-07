@@ -16,14 +16,18 @@ const SideBar = () => {
       children: [
         {
           key: "21",
-          label: <Link to="addProduct">Add Product</Link>,
+          label: <Link to="products">Products</Link>,
         },
         {
           key: "22",
-          label: <Link to="sellProduct">Sell Product</Link>,
+          label: <Link to="addProduct">Add Product</Link>,
         },
         {
           key: "23",
+          label: <Link to="sellProduct">Sell Product</Link>,
+        },
+        {
+          key: "24",
           label: <Link to="deleteProducts">Delete Products</Link>,
         },
       ],
