@@ -15,16 +15,21 @@ const Login = () => {
   const [login] = useLoginMutation();
 
   const onSubmit = async (data: any) => {
-    const res = await login(data).unwrap();
+    try {
+      const res = await login(data).unwrap();
 
-    const userInfo = varifyToken(res.data.token);
+      const userInfo = varifyToken(res.data.token);
 
-    const user = { ...userInfo, token: res.data.token };
+      const user = { ...userInfo, token: res.data.token };
 
-    console.log(user);
-    dispatch(setUser(user));
+      dispatch(setUser(user));
 
-    navigate("/");
+      navigate("/");
+    } catch (error: any) {
+      if (error.data) {
+        alert(error.data.errorMessage);
+      }
+    }
   };
 
   return (
@@ -36,7 +41,7 @@ const Login = () => {
       >
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email1" value="Your email" />
+            <Label htmlFor="email1" value="Username" />
           </div>
           <TextInput
             id="username"

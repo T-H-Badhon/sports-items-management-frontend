@@ -2,54 +2,54 @@
 import { Button, Checkbox } from "flowbite-react";
 
 import { useForm } from "react-hook-form";
+import {
+  useAllProductsQuery,
+  useDeleteProductMutation,
+} from "../redux/api/productApi/productApi";
 
 const DeleteProducts = () => {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log("h", data);
+  const { data } = useAllProductsQuery("");
+
+  const [deleteProduct] = useDeleteProductMutation();
+
+  const onSubmit = async (data: any) => {
+    await deleteProduct(data);
+
+    window.location.reload();
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center gap-2">
-          <Checkbox id="1" value="value1" {...register("id")} />
-          <div>fsdofpkdjf</div>
+        <div className="flex justify-end my-5 mx-5">
+          <Button type="submit">delete</Button>
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="2" {...register("id")} />
-          <div>fsdofpkdjf</div>
+
+        <hr />
+        <div className=" ">
+          {data?.data?.length
+            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              data?.data.map((product: any) => (
+                <div className="grid grid-cols-5 mx-5 my-2 py-2 px-5 bg-slate-400 ">
+                  <Checkbox
+                    className="col-span-1"
+                    id="1"
+                    value={product._id}
+                    {...register("id")}
+                  />
+                  <h1 className="text-left col-span-2">{product.name}</h1>
+                  <h1 className="text-left col-span-1">
+                    Brand: {product.brand}
+                  </h1>
+                  <h1 className="text-left col-span-1">
+                    Color: {product.color}
+                  </h1>
+                </div>
+              ))
+            : null}
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="3" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="4" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="5" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="6" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="7" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="8" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="9" {...register("id")} />
-          <div>fsdofpkdjf</div>
-        </div>
-        <Button type="submit">delete</Button>
       </form>
     </div>
   );

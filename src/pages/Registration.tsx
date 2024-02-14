@@ -1,18 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Label, TextInput } from "flowbite-react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../redux/api/auth/authApi";
 
 const Registration = () => {
   const { register, handleSubmit } = useForm();
 
-  const [signUp, { data, error }] = useSignUpMutation();
+  const navigate = useNavigate();
 
-  console.log(data), console.log(error);
+  const [signUp] = useSignUpMutation();
 
-  const onSubmit = (data: any) => {
-    signUp(data);
+  const onSubmit = async (data: any) => {
+    if (data.password !== data.repeatPassword) {
+      alert("Password not Matched");
+      return;
+    }
+
+    const res = await signUp(data);
+
+    if (res && "error" in res) {
+      const error: any = res.error;
+
+      alert(error.data.errorMessage);
+      return;
+    }
+
+    console.log(res, "hi");
+
+    navigate("/login");
   };
 
   return (

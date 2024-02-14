@@ -1,4 +1,4 @@
-import { Label, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -11,20 +11,18 @@ const SearchBar = ({ searchFunction }: Tprops) => {
 
   return (
     <div className=" mt-10 mb-5">
-      <h1>Search products by name</h1>
       <form
         onSubmit={handleSubmit(searchFunction)}
         className="flex max-w-md flex-col gap-4 mx-auto"
       >
         <div className="flex gap-3">
-          <Label className="text-xl" htmlFor="name" value="Enter name:" />
-
           <TextInput
             className="md:min-w-64"
             id="name"
             type="text"
             sizing="sm"
-            {...register("name")}
+            placeholder="Search By name"
+            {...register("searchTerm")}
           />
           <button
             type="submit"

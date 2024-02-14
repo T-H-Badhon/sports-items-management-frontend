@@ -8,7 +8,7 @@ const SideBar = () => {
   const items = [
     {
       key: "1",
-      label: <Link to="/dashboard">Dashboard</Link>,
+      label: <Link to="/">Dashboard</Link>,
     },
     {
       key: "2",

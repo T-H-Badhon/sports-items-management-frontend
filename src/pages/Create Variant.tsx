@@ -1,18 +1,40 @@
-import { Label, Select, TextInput } from "flowbite-react";
+import { Label, TextInput } from "flowbite-react";
 
 import { useForm } from "react-hook-form";
-import { useAddProductMutation } from "../redux/api/productApi/productApi";
+import {
+  useAddProductMutation,
+  useAllProductsQuery,
+} from "../redux/api/productApi/productApi";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddProduct = () => {
-  const { register, handleSubmit } = useForm();
+const CreateVariant = () => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, setValue } = useForm();
+
+  const { id } = useParams();
+
+  const { data } = useAllProductsQuery({ _id: id });
+
+  if (data) {
+    Object.keys(data.data[0]).forEach((fieldName) => {
+      setValue(fieldName, data.data[0][fieldName]);
+    });
+  }
+
+  const product = data?.data[0];
 
   const [AddProduct] = useAddProductMutation();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = async (data: any) => {
+    if (data._id) {
+      delete data._id;
+    }
+
     if (!data.size) {
       delete data.size;
     }
+
     data.price = parseInt(data.price);
     data.quantity = parseInt(data.quantity);
     data.size = parseInt(data.size);
@@ -23,22 +45,24 @@ const AddProduct = () => {
     if (!data.weight) {
       delete data.weight;
     }
-    console.log(data);
+
     const res = await AddProduct(data);
 
     if ("data" in res) {
-      alert("product added Successfully");
+      alert("product variant added Successfully");
     }
     if ("error" in res) {
-      alert("product lisiting failed!");
+      alert("Faied to create variant!");
       return;
     }
+
+    navigate("/products");
     window.location.reload();
   };
 
   return (
     <div className="mx-auto mt-5 md:mt-20">
-      <h1 className="text-2xl text-blue-950 font-bold my-8">Add Product</h1>
+      <h1 className="text-2xl text-blue-950 font-bold my-8"> Create Variant</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex max-w-md flex-col gap-4 mx-auto"
@@ -52,6 +76,7 @@ const AddProduct = () => {
               id="name"
               type="text"
               sizing="sm"
+              defaultValue={product?.name}
               {...register("name")}
             />
           </div>
@@ -63,6 +88,7 @@ const AddProduct = () => {
               id="brand"
               type="text"
               sizing="sm"
+              defaultValue={product?.brand}
               {...register("brand")}
             />
           </div>
@@ -76,6 +102,7 @@ const AddProduct = () => {
               id="price"
               type="text"
               sizing="sm"
+              defaultValue={product?.price}
               {...register("price")}
             />
           </div>
@@ -87,6 +114,7 @@ const AddProduct = () => {
               id="sportsType"
               type="text"
               sizing="sm"
+              defaultValue={product?.sportsType}
               {...register("sportsType")}
             />
           </div>
@@ -100,6 +128,7 @@ const AddProduct = () => {
               id="quantity"
               type="text"
               sizing="sm"
+              defaultValue={product?.quantity}
               {...register("quantity")}
             />
           </div>
@@ -107,10 +136,13 @@ const AddProduct = () => {
             <div className="mb-2 block">
               <Label htmlFor="condition" value="Condition:" />
             </div>
-            <Select id="countries" {...register("condition")} required>
-              <option>new</option>
-              <option>used</option>
-            </Select>
+            <TextInput
+              id="condition"
+              type="text"
+              sizing="sm"
+              defaultValue={product?.condition}
+              {...register("condition")}
+            />
           </div>
         </div>
         <div className="grid grid-cols-6 gap-3">
@@ -122,6 +154,7 @@ const AddProduct = () => {
               id="material"
               type="text"
               sizing="sm"
+              defaultValue={product?.material}
               {...register("material")}
             />
           </div>
@@ -133,6 +166,7 @@ const AddProduct = () => {
               id="color"
               type="text"
               sizing="sm"
+              defaultValue={product?.color}
               {...register("color")}
             />
           </div>
@@ -146,6 +180,7 @@ const AddProduct = () => {
               id="size"
               type="text"
               sizing="sm"
+              defaultValue={product?.size}
               {...register("size")}
             />
           </div>
@@ -157,6 +192,7 @@ const AddProduct = () => {
               id="weight"
               type="text"
               sizing="sm"
+              defaultValue={product?.weight}
               {...register("weight")}
             />
           </div>
@@ -166,11 +202,11 @@ const AddProduct = () => {
           type="submit"
           className="px-5 py-3 bg-blue-950 text-white rounded-2xl"
         >
-          Add
+          Add Variant
         </button>
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default CreateVariant;

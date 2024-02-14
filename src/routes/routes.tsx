@@ -11,6 +11,7 @@ import DeleteProducts from "../pages/DeleteProducts";
 import Main from "../layouts/Main";
 import PrivateRoutes from "./privateRoutes";
 import LogOut from "../pages/LogOut";
+import CreateVariant from "../pages/Create Variant";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "dashboard",
+        path: "/",
         element: <DashBoard></DashBoard>,
       },
       {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "addProduct",
         element: <AddProduct></AddProduct>,
+      },
+      {
+        path: "createVariant/:id",
+        element: <CreateVariant></CreateVariant>,
       },
       {
         path: "sellProduct",

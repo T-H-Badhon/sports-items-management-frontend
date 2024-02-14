@@ -8,14 +8,26 @@ import { Sidebar } from "react-pro-sidebar";
 const FilterSider = ({
   collapsed,
   setProductQuery,
+  setCollapsed,
 }: {
   collapsed: boolean;
   setProductQuery: any;
+  setCollapsed: any;
 }) => {
   const { register, handleSubmit } = useForm();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSubmit = (data: any) => {
+    data.minPrice = parseInt(data.minPrice);
+    data.maxPrice = parseInt(data.maxPrice);
+
+    if (!data.minPrice) {
+      delete data.minPrice;
+    }
+    if (!data.maxPrice) {
+      delete data.maxPrice;
+    }
+    setCollapsed(true);
     setProductQuery(data);
   };
 

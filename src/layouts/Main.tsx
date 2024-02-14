@@ -27,11 +27,13 @@ const Main = () => {
       </Header>
       <Layout>
         <SideBar></SideBar>
-        <Layout>
-          <Content>
-            <Outlet></Outlet>
-          </Content>
-        </Layout>
+        <div className="w-full overflow-y-scroll">
+          <Layout>
+            <Content>
+              <Outlet></Outlet>
+            </Content>
+          </Layout>
+        </div>
       </Layout>
     </Layout>
   );
