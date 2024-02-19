@@ -13,6 +13,8 @@ const DashBoard = () => {
 
   const { data } = useAllSalesQuery(reportTime);
 
+  console.log(data);
+
   const today = () => {
     setReportTIme({
       startDate: new Date(),

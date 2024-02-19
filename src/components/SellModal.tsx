@@ -45,13 +45,20 @@ const SellModal = ({ openModal, setOpenModal, sellFunc }: TProps) => {
           </div>
           <div className="grid grid-cols-4">
             <div className="mb-2 block col-span-1">
-              <Label className="text-xl" htmlFor="date" value="Quantity: " />
+              <Label className="text-xl" htmlFor="date" value="Date: " />
             </div>
 
             <Datepicker id="date" />
           </div>
           <hr />
           <div className="flex justify-end">
+            <Button
+              color="failure"
+              className="mr-2"
+              onClick={() => setOpenModal(false)}
+            >
+              Discard
+            </Button>
             <Button type="submit">Sell</Button>
           </div>
         </form>
